@@ -1,0 +1,18 @@
+{% extends 'account/templates/account/index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+
+
+<form action='/FormularioRegistro/' method="POST">{% csrf_token %}
+
+    <h3>Crear Usuario</h3>
+
+    <table>
+        {{formulario.as_table}}
+    </table>
+<button type="submit" value="Enviar">Enviar</button>
+ </form>
+
+ {% endblock  %}
