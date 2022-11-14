@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import index, mostrar_registro,FormularioRegistro
+from .views import index,CrearPost,buscar_post
 
 urlpatterns = [
-    path('', index),
-    path('mostrar_registro/', mostrar_registro,name='Registro'),
-    path('formulario_registro/', FormularioRegistro,name='FormularioRegistro')
+    path('', index,name='index'),
+    path('crear_post/', CrearPost,name='CrearPost'),
+    path('buscar_post/', buscar_post,name='Buscar Post'),
 ]

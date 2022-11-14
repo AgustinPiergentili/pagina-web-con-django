@@ -1,0 +1,26 @@
+{% extends 'account/templates/account/index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+
+
+<form action="" method="get">
+
+    <input type="text" name="post" id="post">
+
+    <input type="submit" value="Buscar">
+
+</form>
+
+{% if nombre %}
+
+    <ul>
+    {% for nombre in nombre %}
+        <li>Post de {{CrearPost.nombre}} con numero {{CrearPost.post}}</li>
+    {% endfor %}
+    <ul>
+
+{% endif %}
+    <p>No hay datos</p>
+{% endblock  %}
