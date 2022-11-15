@@ -1,4 +1,4 @@
-{% extends 'account/templates/account/index.html' %}
+{% extends 'account/index.html' %}
 
 {% load static %}
 
@@ -13,14 +13,16 @@
 
 </form>
 
-{% if nombre %}
+{% if posts %}
 
     <ul>
-    {% for nombre in nombre %}
-        <li>Post de {{CrearPost.nombre}} con numero {{CrearPost.post}}</li>
+    {% for p in posts %}
+        <li>Post de {{p.Nombre}} con numero {{p.Post}}</li>
     {% endfor %}
     <ul>
 
-{% endif %}
+{% else %}
     <p>No hay datos</p>
+
+{% endif %}
 {% endblock  %}

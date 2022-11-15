@@ -1,12 +1,12 @@
 from .forms import CrearPostForm
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import CrearPost
+from account.models import *
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'account/templates/account/index.html')
+    return render(request, 'account/index.html')
 
 
 def CrearPost(request):
@@ -24,19 +24,19 @@ def CrearPost(request):
             
             post.save()
 
-            return render (request, 'account/templates/account/index.html')
+            return render (request, 'account/index.html')
     else:
         formulario = CrearPostForm()
 
-    return render(request,'account/templates/account/crearpost.html',{'formulario':formulario})
+    return render(request,'account/crearpost.html',{'formulario':formulario})
 
 def buscar_post(request):
 
     if request.GET.get('post', False):
         post = request.GET['post']
-        nombre = nombre.objects.filter(post__icontains=post)
+        posts = Post.objects.filter(Nombre__icontains=post)
 
-        return render(request,'account/templates/account/buscar_post.html', {'nombre':nombre})
+        return render(request,'account/buscar_post.html', {'posts':posts})
     else:
         respuesta = 'No hay datos'
-    return render(request, 'account/templates/account/buscar_post.html', {'respuesta':respuesta})
+    return render(request, 'account/buscar_post.html', {'respuesta':respuesta})
