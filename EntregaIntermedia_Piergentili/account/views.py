@@ -40,3 +40,4 @@ def buscar_post(request):
     else:
         respuesta = 'No hay datos'
     return render(request, 'account/buscar_post.html', {'respuesta':respuesta})
+
