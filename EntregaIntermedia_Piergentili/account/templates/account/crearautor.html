@@ -1,0 +1,21 @@
+{% extends 'account/index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico %}
+
+<form action='' method="POST"> {% csrf_token %}
+
+    <h3>Crear Autor</h3>
+
+    <table>
+        {{formulario3.as_table}}
+    </table>
+
+  <button type="submit" value="Enviar">Enviar</button>
+
+
+</form>
+
+
+{% endblock  %}

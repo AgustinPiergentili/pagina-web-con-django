@@ -22,6 +22,8 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="btn btn-primary" href="{% url 'CrearPost' %}">Crear Post</a>
+                <a class="btn btn-primary" href="{% url 'Crear Categoria' %}">Crear Categoria</a>
+                <a class="btn btn-primary" href="{% url 'Crear Autor' %}">Crear Autor</a>
                 <a class="btn btn-primary" href="{% url 'Buscar Post' %}">Buscar Post</a>
             </div>
         </nav> 
@@ -32,7 +34,11 @@
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h1 class="mb-5">...</h1>
+                            <h1 class="mb-5">
+                                {% block codigoDinamico2 %}
+        
+                                {% endblock  %}
+                            </h1>
                             <!-- Signup form-->
                             <!-- * * * * * * * * * * * * * * *-->
                             <!-- * * SB Forms Contact Form * *-->
