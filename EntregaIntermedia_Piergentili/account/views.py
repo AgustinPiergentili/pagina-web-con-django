@@ -1,7 +1,11 @@
-from .forms import CrearPostForm,CategoriaForm,AutorForm
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from account.models import *
+from .forms import CrearReseñaForm,CategoriaForm,AutorForm
+
 
 # Create your views here.
 
@@ -9,26 +13,26 @@ def index(request):
     return render(request, 'account/index.html')
 
 
-def CrearPost(request):
+def CrearReseña(request):
 
 
     if request.method == 'POST':
 
-        formulario = CrearPostForm(request.POST)
+        formulario = CrearReseñaForm(request.POST)
 
         if formulario.is_valid():
 
             formulario_limpio = formulario.cleaned_data
 
-            post = Post(Nombre=formulario_limpio['Nombre'], Post=formulario_limpio['Post']) 
+            reseña = Reseña(nombre=formulario_limpio['nombre'], reseña=formulario_limpio['reseña']) 
             
-            post.save()
+            reseña.save()
 
             return render (request, 'account/index.html')
     else:
-        formulario = CrearPostForm()
+        formulario = CrearReseñaForm()
 
-    return render(request,'account/crearpost.html',{'formulario':formulario})
+    return render(request,'account/crearreseña.html',{'formulario':formulario})
 
 
 def CrearCategoria(request):
@@ -75,14 +79,34 @@ def CrearAutor(request):
     return render(request,'account/crearautor.html',{'formulario3':formulario3})
 
 
-def buscar_post(request):
+def buscar_reseña(request):
 
-    if request.GET.get('post', False):
-        post = request.GET['post']
-        posts = Post.objects.filter(Nombre__icontains=post)
+    if request.GET.get('reseña', False):
+        reseña = request.GET['reseña']
+        reseñas = Reseña.objects.filter(nombre__icontains=reseña)
 
-        return render(request,'account/buscar_post.html', {'posts':posts})
+        return render(request,'account/buscar_reseña.html', {'reseñas':reseñas})
     else:
         respuesta = 'No hay datos'
-    return render(request, 'account/buscar_post.html', {'respuesta':respuesta})
+    return render(request, 'account/buscar_reseña.html', {'respuesta':respuesta})
 
+
+class ReseñaList(ListView):
+
+    model = Reseña
+    template_name = "account/reseña_list.html"
+
+class ReseñaDetail(DetailView):
+    model = Reseña
+    template_name = 'account/reseña_detalle.html'
+
+
+class ReseñaDelete(DeleteView):
+    model = Reseña 
+    success_url = '/reseña_list'
+
+class ReseñaUpdate(UpdateView):
+
+    model = Reseña
+    success_url = '/reseña_list'
+    fields = ["nombre","reseña"]

@@ -1,0 +1,22 @@
+{% for resenia in object_list %}
+
+<ul>
+    <li>
+        <li>
+            {{resenia}}
+
+            <button>
+                <a href="{% url 'Detail' resenia.id %}">Ver Detalles</a>
+            </button>
+            <button>
+                <a href="{% url 'Delete' resenia.id %}">Eliminar</a>
+            </button>
+            <button>
+                <a href="{% url 'Update' resenia.id %}">Editar</a>
+            </button>
+        </li>
+        </li>
+    </li>
+</ul>
+
+{% endfor %}

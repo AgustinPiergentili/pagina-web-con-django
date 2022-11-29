@@ -7,17 +7,17 @@
 
 <form action="" method="get">
 
-    <input type="text" name="post" id="post">
+    <input type="text" name="reseña" id="reseña">
 
     <input type="submit" value="Buscar">
 
 </form>
 
-{% if posts %}
+{% if resenias %}
 
     <ul>
-    {% for p in posts %}
-        <li>Post de {{p.Nombre}} con numero {{p.Post}}</li>
+    {% for p in resenias %}
+        <li>Reseña de la pelicula {{p.nombre}} :{{p.reseña}}</li>
     {% endfor %}
     <ul>
 

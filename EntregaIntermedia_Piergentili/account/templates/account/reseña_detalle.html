@@ -1,0 +1,15 @@
+{% extends 'account/index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico2 %}
+
+{{reseña.nombre}}
+{{reseña.reseña}}
+
+
+    <button>
+        <a href="{% url 'List' %}">Volver</a>
+    </button>
+
+{% endblock  %}
