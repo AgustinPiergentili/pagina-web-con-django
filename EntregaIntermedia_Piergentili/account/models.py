@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your models here.
 
 class Reseña (models.Model):
@@ -7,7 +9,8 @@ class Reseña (models.Model):
 
     def __str__(self) -> str:
         return f"Nombre: {self.nombre} - Reseña: {self.reseña}"
-    
+    class Reseña(LoginRequiredMixin):
+        pass
 
 class Categoria (models.Model):
     genero = models.CharField(max_length=50,default="Some String")

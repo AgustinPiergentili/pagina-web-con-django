@@ -6,10 +6,13 @@ from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from account.models import *
 from .forms import CrearReseñaForm,CategoriaForm,AutorForm
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-from django.contrib.auth import login,logout,authenticate
-
+from django.contrib.auth import login,authenticate
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
+
+@login_required
 def index(request):
     return render(request, 'account/index.html')
 
@@ -140,6 +143,7 @@ def register(request):
     
 
 
+#####CLASES!!#####
 
 class ReseñaList(ListView):
 
