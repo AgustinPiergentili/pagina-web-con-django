@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(Reseña)
 admin.site.register(Categoria)
 admin.site.register(Autor)
+admin.site.register(Avatar)

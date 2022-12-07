@@ -12,7 +12,8 @@ urlpatterns = [
     path('reseña_detail/<pk>', ReseñaDetail.as_view(),name='Detail'),
     path('reseña_confirm_delete/<pk>', ReseñaDelete.as_view(),name='Delete'),
     path('reseña_edit/<pk>', ReseñaUpdate.as_view(),name='Update'),
-    path('login/',login_request,name='Login'),
-    path('registro/',register,name='Register'),
-    path('logout/',LogoutView.as_view(template_name='account/logout.html'),name='Logout'),
+    path('login/',AdminLoginView.as_view(),name='Login'),
+    path('registro/',SignUpView.as_view(),name='Register'),
+    path('logout/',AdminLogoutView.as_view( ),name='Logout'),
+    path('editar_usuario',editar_user,name='Editar Usuario'),
 ]

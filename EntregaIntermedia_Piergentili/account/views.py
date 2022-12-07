@@ -3,20 +3,32 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
+
+# import form & model
 from account.models import *
-from .forms import CrearReseñaForm,CategoriaForm,AutorForm
-from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-from django.contrib.auth import login,authenticate
+from .forms import CrearReseñaForm,CategoriaForm,AutorForm,SignUpform,UserEditForm
+
+#Auth
+from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+#Redireccion
+from django.urls import reverse_lazy
+
+###------------------------------------------------------------------###
+
 # Create your views here.
+
+def index(request):
+
+    avatares = Avatar.objects.filter(user=request.user.id)
+
+    return render(request, 'account/index.html')
 
 
 
 @login_required
-def index(request):
-    return render(request, 'account/index.html')
-
-
 def CrearReseña(request):
 
 
@@ -39,6 +51,8 @@ def CrearReseña(request):
     return render(request,'account/crearreseña.html',{'formulario':formulario})
 
 
+
+@login_required
 def CrearCategoria(request):
 
 
@@ -61,6 +75,8 @@ def CrearCategoria(request):
     return render(request,'account/crearcategoria.html',{'formulario2':formulario2})
 
 
+
+@login_required
 def CrearAutor(request):
 
 
@@ -84,6 +100,7 @@ def CrearAutor(request):
 
 
 
+@login_required
 def buscar_reseña(request):
 
     if request.GET.get('resena', False):
@@ -97,70 +114,81 @@ def buscar_reseña(request):
 
 
 
-def login_request(request):
+@login_required
+def editar_user(request):
+
+    usuario = request.user
+
+    if request.method == 'POST':
+        usuario_form = UserEditForm(request.POST)
+
+        if usuario_form.is_valid():
+
+            informacion = usuario_form.cleaned_data
+
+            usuario.username = informacion['username']
+            usuario.email = informacion['email']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password2']
+
+            usuario.save()
+
+            return render(request,'account/index.html')
     
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data = request.POST)
-
-        if form.is_valid():
-            usuario = form.cleaned_data.get('username')
-            contra = form.cleaned_data.get('password')
-
-            user = authenticate(username=usuario, password=contra)
-
-            if user is not None:
-                login(request,user)
-
-                return render(request,'account/index.html',{'mensaje':f'Bienvenido {usuario}'})
-            else:
-                return render(request,'account/index.html',{'mensaje':'Error, datos incorrectos'})
-        
-        else:
-
-                return render(request,'account/index.html',{'mensaje':'Error, formulario erroneo'})
-
-    form = AuthenticationForm()
-
-    return render(request,'account/login.html', {'form':form})
-
-
-
-def register(request):
-    if request.method == 'POST':
-
-        form = UserCreationForm(request.POST)
-        
-        if form.is_valid():
-
-            username = form.cleaned_data['username']
-            form.save()
-            return render(request,'account/index.html', {'mensaje':'Usuario Creado'})
-
     else:
-        form = UserCreationForm()
+        usuario_form = UserEditForm(initial={
+            'username': usuario.username,
+            'email': usuario.email,
+        })
+    return render(request,'account/admin_update.html',{
+        'form': usuario_form,
+        'usuario': usuario
+    })
 
-    return render(request, 'account/registro.html', {'form':form})
-    
 
 
-#####CLASES!!#####
 
-class ReseñaList(ListView):
+
+
+#####VISTAS BASADAS EN CLASES!!#####
+
+
+class ReseñaList(LoginRequiredMixin, ListView):
 
     model = Reseña
     template_name = "account/reseña_list.html"
 
-class ReseñaDetail(DetailView):
+
+class ReseñaDetail(LoginRequiredMixin,DetailView):
     model = Reseña
     template_name = 'account/reseña_detalle.html'
 
 
-class ReseñaDelete(DeleteView):
+class ReseñaDelete(LoginRequiredMixin,DeleteView):
     model = Reseña 
     success_url = '/reseña_list'
 
-class ReseñaUpdate(UpdateView):
+
+class ReseñaUpdate(LoginRequiredMixin,UpdateView):
 
     model = Reseña
     success_url = '/reseña_list'
-    fields = ["nombre","reseña"]
+    fields = [
+        "nombre",
+        "reseña"
+        ]
+
+
+class SignUpView(CreateView):
+
+    form_class = SignUpform
+    success_url = reverse_lazy('index')
+    template_name = 'account/registro.html'
+
+
+class AdminLoginView(LoginView):
+    template_name = 'account/login.html'
+
+
+class AdminLogoutView(LogoutView):
+    template_name = 'account/index.html'  
