@@ -147,7 +147,26 @@ def editar_user(request):
 
 
 
+@login_required
+def AgregarAvatar(request):
+    if request.method == 'POST':
 
+        miformulario = Avatar(request.POST, request.FILES)
+
+        if miformulario.is_valid:
+
+            u=User.objects.get(username=request.user)
+
+            avatar = Avatar(user=u, imagen=miformulario.cleaned_data['imagen'])
+
+            avatar.save()
+
+            return render(request, 'account/index.html')
+
+    else:
+        miformulario= Avatar()
+    
+    return render(request, "account/agregaravatar.html", {'miformulario':miformulario})
 
 
 #####VISTAS BASADAS EN CLASES!!#####

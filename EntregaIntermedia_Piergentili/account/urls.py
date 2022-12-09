@@ -16,4 +16,5 @@ urlpatterns = [
     path('registro/',SignUpView.as_view(),name='Register'),
     path('logout/',AdminLogoutView.as_view( ),name='Logout'),
     path('editar_usuario',editar_user,name='Editar Usuario'),
+    path('agregaravatar/',AgregarAvatar, name="Agregar Avatar"),
 ]
