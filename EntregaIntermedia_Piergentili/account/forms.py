@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 class CrearReseñaForm(forms.Form):
     nombre = forms.CharField(max_length=40)
+    titulo = forms.CharField(max_length=50)
+    genero = forms.CharField(max_length=30)
     reseña = forms.CharField(max_length=240)
 
 class CategoriaForm (forms.Form):

@@ -24,7 +24,7 @@ def index(request):
 
     avatares = Avatar.objects.filter(user=request.user.id)
 
-    return render(request, 'account/index.html')
+    return render(request, 'account/index.html',{"avatares":avatares})
 
 
 
@@ -40,7 +40,8 @@ def CrearReseña(request):
 
             formulario_limpio = formulario.cleaned_data
 
-            reseña = Reseña(nombre=formulario_limpio['nombre'], reseña=formulario_limpio['reseña']) 
+            reseña = Reseña(nombre=formulario_limpio['nombre'], reseña=formulario_limpio['reseña'],titulo=formulario_limpio['titulo'],
+            genero=formulario_limpio['genero']) 
             
             reseña.save()
 

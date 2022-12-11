@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 
 class Reseña (models.Model):
     nombre = models.CharField(max_length=40)
+    titulo = models.CharField(max_length=50)
+    genero = models.CharField(max_length=30)
     reseña  = models.CharField(max_length=240)
 
     def __str__(self) -> str:

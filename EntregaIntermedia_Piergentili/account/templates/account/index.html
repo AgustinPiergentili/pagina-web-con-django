@@ -30,7 +30,7 @@
                 <a class="btn btn-primary" href="{% url 'Editar Usuario' %}">Editar Perfil</a>
                 <a class="btn btn-primary" href="{% url 'Logout' %}">Cerrar sesion</a>
                 <p class="text-muted small mb-4 mb-1g-0"> {{user.username}} </p>
-                <img src="{{url}}" alt="">
+                <img src="{{avatares.imagen.url}}" alt="">
                 {% else %}
                 <a class="btn btn-primary" href="{% url 'Login' %}">Iniciar Sesion</a>
                 <a class="btn btn-primary" href="{% url 'Register' %}">Registrarse</a>
