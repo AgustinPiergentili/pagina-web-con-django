@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView,UpdateView,DeleteView
 
 # import form & model
 from account.models import *
-from .forms import CrearReseñaForm,CategoriaForm,AutorForm,SignUpform,UserEditForm
+from .forms import CrearReseñaForm,CategoriaForm,AutorForm,SignUpform,UserEditForm,CrearComentarioForm
 
 #Auth
 from django.contrib.auth.views import LoginView,LogoutView
@@ -41,8 +41,9 @@ def CrearReseña(request):
             formulario_limpio = formulario.cleaned_data
 
             reseña = Reseña(nombre=formulario_limpio['nombre'], reseña=formulario_limpio['reseña'],titulo=formulario_limpio['titulo'],
-            genero=formulario_limpio['genero']) 
+            genero=formulario_limpio['genero']) #,imagen=formulario_limpio['imagen']) 
             
+
             reseña.save()
 
             return render (request, 'account/index.html')
@@ -170,7 +171,33 @@ def AgregarAvatar(request):
     return render(request, "account/agregaravatar.html", {'miformulario':miformulario})
 
 
+@login_required
+def CrearComentario(request):
+
+
+    if request.method == 'POST':
+
+        formulario = CrearComentarioForm(request.POST)
+
+        if formulario.is_valid():
+
+            formulario_limpio = formulario.cleaned_data
+
+            comentario = Comentario(nombre=formulario_limpio['nombre'], comentario=formulario_limpio['comentario']) 
+            
+
+            comentario.save()
+
+            return render (request, 'account/crear_ comentario.html')
+    else:
+        formulario = CrearComentarioForm()
+
+    return render(request,'account/crear_comentario.html',{'formulario':formulario})
+
+
+
 #####VISTAS BASADAS EN CLASES!!#####
+
 
 
 class ReseñaList(LoginRequiredMixin, ListView):

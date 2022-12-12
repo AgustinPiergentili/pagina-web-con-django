@@ -4,9 +4,12 @@
 
 {% block codigoDinamico2 %}
 
-{{reseña.nombre}}
-{{reseña.reseña}}
+<h1>Nombre: {{reseña.nombre}}</h1>
+<h1>Titulo: {{reseña.titulo}}</h1>
+<h1>Genero: {{reseña.genero}}</h1>
+<h1>Reseña: {{reseña.reseña}}</h1>
 
+<h3>Comentarios: {{comentario.comentario}}</h3>
 
     <button>
         <a href="{% url 'List' %}">Volver</a>

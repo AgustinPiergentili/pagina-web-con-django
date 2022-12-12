@@ -45,12 +45,16 @@
                         <div class="text-center text-white">
                             <!-- Page heading-->
                             <h1 class="mb-5"> 
+
+                                {% block codigoDinamico2 %}
+
+                                
                                 {% if request.user.is_authenticated %}
                                 Bienvenido {{user.username}} que deseas hacer hoy?
                                 {% else %}
                                 PeliBlog, tu blog de pelicula.
                                 {% endif %}
-                                {% block codigoDinamico2 %}
+
 
                                 {% endblock  %}
                             </h1>

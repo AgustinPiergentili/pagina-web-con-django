@@ -6,12 +6,20 @@ from django.contrib.auth.models import User
 
 class Reseña (models.Model):
     nombre = models.CharField(max_length=40)
-    titulo = models.CharField(max_length=50)
-    genero = models.CharField(max_length=30)
+    titulo = models.CharField(max_length=50,default='some_value')
+    genero = models.CharField(max_length=30,default='some_value')
     reseña  = models.CharField(max_length=240)
+    imagen = models.ImageField(upload_to='media/images/', null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"Nombre: {self.nombre} - Reseña: {self.reseña}"
+        return f"Nombre: {self.nombre} - Titulo: {self.titulo} - Genero: {self.genero}"
+
+
+
+class Comentario(models.Model):
+    nombre = models.CharField(max_length=40)
+    comentario = models.CharField(max_length=240)
+
 
 
 class Categoria (models.Model):
@@ -21,6 +29,7 @@ class Categoria (models.Model):
         return f"Genero: {self.genero}"
 
 
+
 class Autor(models.Model):
     nombre = models.CharField(max_length=40)
     apellido= models.CharField(max_length=50)
@@ -28,6 +37,7 @@ class Autor(models.Model):
 
     def __str__(self) -> str:
         return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Edad: {self.edad}"
+
 
 
 class Avatar(models.Model):

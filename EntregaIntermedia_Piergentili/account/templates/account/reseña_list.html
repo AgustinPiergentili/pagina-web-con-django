@@ -1,22 +1,50 @@
+
+{% extends 'account/index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico2 %}
+
+
 {% for resenia in object_list %}
 
 <ul>
-    <li>
-        <li>
-            {{resenia}}
 
+            <h1>
+                {{resenia}}
+            </h1>
+
+
+            <h3>
             <button>
                 <a href="{% url 'Detail' resenia.id %}">Ver Detalles</a>
             </button>
+
+
             <button>
                 <a href="{% url 'Delete' resenia.id %}">Eliminar</a>
             </button>
+
+
             <button>
                 <a href="{% url 'Update' resenia.id %}">Editar</a>
             </button>
-        </li>
-        </li>
-    </li>
+
+
+            <button>
+                <a href="{% url 'Comentario' %}">Dejar comentario</a>
+            </button>
+
+
+            <button>
+                <a href="{% url 'index'%}">Volver</a>
+            </button>
+             </h3>
+
+
+
 </ul>
 
 {% endfor %}
+
+{% endblock %}

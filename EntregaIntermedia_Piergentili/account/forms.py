@@ -9,6 +9,12 @@ class CrearReseñaForm(forms.Form):
     genero = forms.CharField(max_length=30)
     reseña = forms.CharField(max_length=240)
 
+
+class CrearComentarioForm(forms.Form):
+    nombre = forms.CharField(max_length=40)
+    comentario = forms.CharField(max_length=240)
+
+
 class CategoriaForm (forms.Form):
     genero = forms.CharField(max_length=50)
 

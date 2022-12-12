@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Registro</title>
+    <title>Editar perfil</title>
 </head>
 <body>
     
@@ -14,7 +14,15 @@
 
 
     </form>
+    
+    <form method="POST" enctype="multipart/form-data">
 
+        {% csrf_token %}
+        {{miformulario.as_p}}
+
+        <input type="submit" value="Actualizar">
+
+    </form>
 
 
 </body>
