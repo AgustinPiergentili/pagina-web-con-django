@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView,UpdateView,DeleteView
 
 # import form & model
 from account.models import *
-from .forms import CrearReseñaForm,CategoriaForm,AutorForm,SignUpform,UserEditForm,CrearComentarioForm
+from .forms import CrearReseñaForm,SignUpform,UserEditForm,CrearComentarioForm
 
 #Auth
 from django.contrib.auth.views import LoginView,LogoutView
@@ -24,7 +24,7 @@ def index(request):
 
     avatares = Avatar.objects.filter(user=request.user.id)
 
-    return render(request, 'account/index.html',{"avatares":avatares})
+    return render(request, 'account/index.html')
 
 
 
@@ -41,7 +41,7 @@ def CrearReseña(request):
             formulario_limpio = formulario.cleaned_data
 
             reseña = Reseña(nombre=formulario_limpio['nombre'], reseña=formulario_limpio['reseña'],titulo=formulario_limpio['titulo'],
-            genero=formulario_limpio['genero']) #,imagen=formulario_limpio['imagen']) 
+            genero=formulario_limpio['genero'],imagen = request.FILES.get('txtimagen')) 
             
 
             reseña.save()
@@ -54,60 +54,13 @@ def CrearReseña(request):
 
 
 
-@login_required
-def CrearCategoria(request):
-
-
-    if request.method == 'POST':
-
-        formulario2 = CategoriaForm(request.POST)
-
-        if formulario2.is_valid():
-
-            formulario_limpio = formulario2.cleaned_data
-
-            categoria = Categoria(genero=formulario_limpio['genero']) 
-            
-            categoria.save()
-
-            return render (request, 'account/index.html')
-    else:
-        formulario2 = CategoriaForm()
-
-    return render(request,'account/crearcategoria.html',{'formulario2':formulario2})
-
-
-
-@login_required
-def CrearAutor(request):
-
-
-    if request.method == 'POST':
-
-        formulario3 = AutorForm (request.POST)
-
-        if formulario3.is_valid():
-
-            formulario_limpio = formulario3.cleaned_data
-
-            autor = Autor(nombre=formulario_limpio['nombre'],apellido=formulario_limpio['apellido'],edad=formulario_limpio['edad']) 
-            
-            autor.save()
-
-            return render (request, 'account/index.html')
-    else:
-        formulario3 = AutorForm()
-
-    return render(request,'account/crearautor.html',{'formulario3':formulario3})
-
-
 
 @login_required
 def buscar_reseña(request):
 
     if request.GET.get('resena', False):
         resena = request.GET['resena']
-        resenas = Reseña.objects.filter(nombre__icontains=resena)
+        resenas = Reseña.objects.filter(titulo__icontains=resena)
 
         return render(request,'account/buscar_resena.html', {'resenas':resenas})
     else:
@@ -132,6 +85,7 @@ def editar_user(request):
             usuario.email = informacion['email']
             usuario.password1 = informacion['password1']
             usuario.password2 = informacion['password2']
+            usuario.imagen = request.FILES.get('txtimagen')
 
             usuario.save()
 
@@ -193,6 +147,12 @@ def CrearComentario(request):
         formulario = CrearComentarioForm()
 
     return render(request,'account/crear_comentario.html',{'formulario':formulario})
+
+
+
+def AboutMe(request):
+
+        return render(request, 'account/about_me.html')
 
 
 

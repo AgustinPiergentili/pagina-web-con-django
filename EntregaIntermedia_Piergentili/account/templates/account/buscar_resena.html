@@ -21,7 +21,8 @@
 
     <ul>
     {% for p in resenas %}
-        <li>Reseña de la pelicula {{p.nombre}} :{{p.reseña}}</li>
+        <h1>Reseña de la pelicula {{p.titulo}}, escrita por {{p.nombre}}: </h1>
+        <h1> {{p.reseña}} </h1>
     {% endfor %}
     <ul>
 

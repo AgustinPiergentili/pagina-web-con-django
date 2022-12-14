@@ -1,4 +1,14 @@
+{% extends 'account/index.html' %}
+
+{% load static %}
+
+{% block codigoDinamico2 %}
+
 <form method="post"> {% csrf_token %}
     Esta seguro que desea elminar la reseña: {{object}}
-    <input type="submit" value ='Confirmar'>
+    <h2>
+        <input type="submit" value ='Confirmar'>
+    </h2>
 </form>
+
+{% endblock  %}

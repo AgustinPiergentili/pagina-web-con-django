@@ -23,18 +23,17 @@
             <div class="container">
                 {% if request.user.is_authenticated %}
                 <a class="btn btn-primary" href="{% url 'Crear Reseña' %}">Crear Reseña</a>
-                <a class="btn btn-primary" href="{% url 'Crear Categoria' %}">Crear Categoria</a>
-                <a class="btn btn-primary" href="{% url 'Crear Autor' %}">Crear Autor</a>
-                <a class="btn btn-primary" href="{% url 'List' %}">Leer Reseña</a>
+                <a class="btn btn-primary" href="{% url 'List' %}">Lista de Reseñas</a>
                 <a class="btn btn-primary" href="{% url 'Buscar Reseña' %}">Buscar Reseña</a>
                 <a class="btn btn-primary" href="{% url 'Editar Usuario' %}">Editar Perfil</a>
                 <a class="btn btn-primary" href="{% url 'Logout' %}">Cerrar sesion</a>
                 <p class="text-muted small mb-4 mb-1g-0"> {{user.username}} </p>
-                <img src="{{avatares.imagen.url}}" alt="">
+                <img height="40px" src="{{url}}" alt="imagen">
                 {% else %}
                 <a class="btn btn-primary" href="{% url 'Login' %}">Iniciar Sesion</a>
                 <a class="btn btn-primary" href="{% url 'Register' %}">Registrarse</a>
                 {% endif %}
+                <a class="btn btn-primary" href="{% url 'About Me' %}">About Me</a>
             </div>
         </nav> 
         <!-- Masthead-->
@@ -107,27 +106,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                        <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                        </ul>
+
                         <p class="text-muted small mb-4 mb-lg-0">&copy; Todos los derechos reservados. Desde el 2022</p>
                     </div>
                     <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                                <a href="https://www.facebook.com/agustin.lmds"><i class="bi-facebook fs-3"></i></a>
                             </li>
                             <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
+                                <a href="https://twitter.com/AgusPiergen"><i class="bi-twitter fs-3"></i></a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                                <a href="https://www.instagram.com/agustinlmds/"><i class="bi-instagram fs-3"></i></a>
                             </li>
                         </ul>
                     </div>

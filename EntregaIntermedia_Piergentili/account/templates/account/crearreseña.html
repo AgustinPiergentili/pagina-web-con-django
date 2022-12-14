@@ -5,13 +5,19 @@
 {% block codigoDinamico2 %}
 
 
-<form action='' method="POST"> {% csrf_token %}
+<form action='' method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
     <h3>Crear Reseña</h3>
 
     <table>
         {{formulario.as_table}}
     </table>
+
+    <br>
+    <label>Imagen</label>
+    <input type="file" name='txtimagen' id='txtimagen'>
+
+    <br>
 
   <button type="submit" value="Enviar">Enviar</button>
 
